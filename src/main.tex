@@ -1,25 +1,42 @@
+
+
+% Ce ficher contient le format standard des pdfs de https://github.com/ULBstudents , il n'est pas voué à être modifié. Pour modifier les informations de titres et autheurs, modifiez pdfinfo.tex
+
+
 \documentclass[a4paper,10pt]{article}
 \usepackage[a4paper]{geometry}
 \geometry{hscale=0.8,vscale=0.8,centering}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel} % Exposant
 
-
 \usepackage{enumerate} % Listes
-\usepackage{amsmath} % Matrices
+\usepackage{amsmath,amsfonts,amssymb} % Matrices, Align
 \usepackage{graphicx}
-\usepackage{amssymb}
 \usepackage{ulem}
-\usepackage{color}
-
 \usepackage{listings} % Lecture du code
 \usepackage{hyperref} % Hyperlien
+\usepackage{color} % Couleurs
+\usepackage[table]{xcolor} % Couleurs dans les tableaux
+\usepackage{titlesec}
 
+\usepackage{array} % Tableau pour les formules de math
+\newcolumntype{L}{>{\displaystyle} l}
+\newcolumntype{C}{>{\displaystyle} c}
+\newcolumntype{R}{>{\displaystyle} r}
+\def\arraystretch{1.5}
 
-% Mise en page spéciale fancyhdr pour les en-têtes
-\usepackage{fancyhdr}
+\input{pdfinfo}
+
+\usepackage{fancyhdr} % Mise en page spéciale fancyhdr pour les en-têtes
 \pagestyle{fancy}
+
+
+\title{\ulbtitle} % Titres
+\author{\ulbauthors} % Auteurs depuis pdfinfo.tex
+\date{\today} % Date de compilation du pdf
+
 
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[C]{} % Rien en haut de page au milieu
@@ -28,50 +45,33 @@
 
 \renewcommand{\footrulewidth}{0pt}
 \fancyfoot[C]{} % Rien en bas de page au milieu
-\fancyfoot[L]{Open source pour ajout ou modification:\\https://github.com/Rodriguevb/INFO-F303-Reseaux-Resume/} % Numéro de page en bas de page à gauche
+\fancyfoot[L]{Open source pour ajout ou modification:\\\ulbbasdepage} % Lien de bas de page à gauche
 \fancyfoot[R]{\thepage} % Numéro de page en bas de page à droite
 \setlength{\headheight}{12.1638pt}
 
 
-\author{Rodrigue \textsc{Van Brande}\\Antoine \textsc{Dewilde} (résumé original)\\Julien \textsc{Vanbergen} (réponses théorie)} % Auteur
-\date{\today} % Date de compilation du pdf
-
 \pdfinfo{
-    /Author   (Rodrigue VAN BRANDE, Antoine DEWILDE (résumé original), Julien VANBERGEN (réponses théorie))
-    /Creator  (https://github.com/Rodriguevb/INFO-F303-Reseaux-Resume/)
+	/Title    (\ulbpdfinfotitle)
+	/Author   (\ulbpdfinfoauthors)
+	/Creator  (\ulbpdfinfolink)
 }
+
 
 %Création d'un subsub...section (avec \paragraph{} \subparagraph{})
-\usepackage{titlesec}
-
-%Profondeur pour la table des matières dans les titres
-\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
-
-% On rajoute les espaces
-\titleformat{\paragraph}{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-\titleformat{\subparagraph}{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
-\titlespacing*{\subparagraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-%\newcommand{\fonction}[nb de parametre]{définition de la commande}
-\newcommand{\subsubsubsection}[1]{\paragraph{#1}}
-\newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
 
 
-% Titre du PDF
-\title{INFO-F303 - Réseaux\\Guy \textsc{Leduc}\\Résumé du cours}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
-\pdfinfo{
-/Title(INFO-F303 - Réseaux - Résumé du cours)
-}
 
 \begin{document}
-    \maketitle       % Titre
-    \newpage         % Saut de page
-    \tableofcontents % table des matières / Besoin d'une double compilation
-    \newpage         % Saut de page
-
-    \input{1.resume/text}
-    \input{2.questions_et_reponses/text}
-    
+	\maketitle       % Titre
+	\newpage         % Saut de page
+	\tableofcontents % table des matières / Besoin d'une double compilation
+	\newpage         % Saut de page
+	\ulbpdfinput     % Le contenu
 \end{document}

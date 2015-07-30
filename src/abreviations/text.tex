@@ -1,0 +1,336 @@
+\section{Abréviations}
+
+
+
+
+\textbf{AIMD} \textit{Additive Increase, Multiplicative Decrease} Algorithme de contrôle de congestion de TCP.
+L’approche de TCP consiste à faire en sorte que chaque expéditeur régule sa vitesse
+d’envoi en fonction du niveau de congestion perçu au sein du réseau. Le phénomène de
+perte (qui est la principale conséquence d’une congestion sur le réseau) est identifié soit
+par l’expiration du temps imparti, soit par la réception de trois accusés de réception
+identiques de la part du destinataire. L’algorithme de contrôle de congestion de TCP
+présente trois composantes principales : Un accroissement additif et une décroissance
+multiplicative, un départ lent et une réaction au phénomène d’expiration du temps
+imparti.
+Avec le contrôle de congestion de TCP, chaque pôle maintient une variable dite
+fenêtre de congestion appelée CongWin, qui impose une limite au rythme auquel l’expé-
+diteur est autorisé à charger des données sur le réseau. TCP a recours à une approche
+décroissante multiplicative, c’est-à-dire que la valeur CongWin est diminuée de moitié
+après chaque phénomène de perte, avec une limite en la valeur de 1 MSS. Une fois le
+phénomène de congestion résorbé, TCP doit pouvoir agir pour augmenter le taux d’envoi.
+TCP procède donc à un agrandissement progressif linéaire de sa fenêtre de congestion.
+Cet algorithme est appelé algorithme AIMD (Additive Increase, Multiplicative Decrease).
+Au début d’une connexion, la variable CongWin a une valeur de un MSS, ce qui fait
+un taux d’envoi de MSS/RTT. Mais le réseau dispose peut-être d’un débit bien plus
+important, et il serait idiot de faire une progression linéaire jusqu’à cette valeur (ce qui
+peut prendre beaucoup de temps sur une connexion disposant d’un très bon débit).
+L’expéditeur aura donc recours à une accélération exponentielle en doublant la valeur de
+CongWin à chaque RTT, et ce jusqu’aux premiers phénomènes de perte, moment auquel
+il divise brusquement CongWin par deux et passe au mode de progression linéaire décrit
+ci-dessus. Cette phase initiale est appelée départ lent.
+Il reste un point important à détailler : TCP fait une distinction entre un phénomène
+de perte signalé par trois accusés identiques (ce qui indique une perte de seulement
+quelques paquets sur le réseau) et un phénomène de perte décelé par expiration du
+temps imparti (qui laisse plus croire à une grosse congestion du réseau qui aurait perdu
+tout ce qui a été envoyé). Dans le premier cas, il se contente de diviser la fenêtre de
+congestion par deux, et de continuer une progression linéaire, comme nous l’avons déjà
+précisé (on parle de récupération rapide). Dans le second cas, l’expéditeur revient au
+départ lent, ramenant la taille de la fenêtre de congestion à un seul MSS. De plus TCP
+garde le contrôle sur les processus au moyen d’une variable Seuil, qui détermine la taille
+que doit atteindre la fenêtre avant que ne cesse la phase de départ lent et ne commence
+la phase d’évitement de congestion. Cette variable prend initialement une valeur élevée
+(65 Ko en pratique), et se trouve divisée par deux lors des phénomènes de perte.
+L’algorithme de contrôle de congestion de TCP opère donc de la façon suivante :
+\begin{itemize}
+	\item Tant que la taille de la fenêtre de congestion est inférieure à la valeur du seuil,
+l’expéditeur est en phase de départ lent et la fenêtre connaît une croissance exponentielle.
+	\item Une fois la valeur du seuil dépassée, l’expéditeur entre dans la phase d’évitement
+de congestion durant laquelle la fenêtre s’accroît de manière linéaire.
+	\item Lorsqu’il y a trois accusés de réception identiques, la valeur du seuil est réglée à la
+moitié de la taille de la fenêtre de congestion en cours et cette dernière est portée
+à la valeur du seuil.
+	\item Lors de l’expiration du temps imparti, la valeur du seuil est réglée à la moitié de
+la fenêtre de congestion en cours et cette dernière est portée à 1 MSS.
+\end{itemize}
+Le débit à un instant donné sera CongWin/RTT, mais il est continuellement en dents
+de scie, il est donc naturel de se demander quel est le débit moyen d’une connexion TCP
+sur une durée plus longue. Notons w la taille de la fenêtre de congestion (en octets) et un
+temps aller-retour de RTT secondes. Le débit est approximativement w/RT T. Appelons
+W la valeur atteinte par w lorsqu’un phénomène de perte se présente. En partant du
+principe que RTT et W sont relativement constants dans le temps, le débit varie entre
+1
+2W/RTT et W/RTT. Le débit moyen sur la connexion sera donc à peu près $\frac{3}{4}$W/RTT.
+
+
+
+
+\textbf{API} \textit{Application Programmers' Interface.} Interface entre l'application et le réseau.
+
+
+
+\textbf{ARP} \textit{Autonomous Systems Protocol.} Protocole permettant la conversation des adresses LAN et IP.
+
+
+
+\textbf{AS} \textit{Autonomous Systems.} Régions de routeurs s’autogérant.
+
+
+
+\textbf{ASN} \textit{Autonomous System Number.} Numéro d’identification unique des systèmes autonomes BGP.
+
+
+
+\textbf{BGP} \textit{BGP Protocol.} Le protocole de routage inter-domaine BGP. BGP se définit comme un protocole à vecteur de chemin. Les routeurs BGP voisins, connus sous le nom de partenaires BGP, s’échangent des informations détaillées sur les chemins à emprunter (plutôt que des indications sur la distance comme dans les protocoles à vecteur de distance). BGP est un protocole distribué, dans le sens où les routeurs BGP ne communiquent qu’avec leurs voisins directs. Le routage BGP se fait en direction de réseaux de destination plutôt qu’en direction de routeurs ou de serveurs ; une fois qu’un datagramme a atteint son réseau de destination, il est pris en charge par le routage interne de celui-ci jusqu’à son destinataire final. Dans le cadre de BGP, les systèmes autonomes s’identifient à l’aide d’un numéro de système autonome unique (ASN, Autonomous System Number ). BGP assure trois grandes fonctions :
+\begin{itemize}
+	\item Réception et filtrage d’annonces de parcours en provenance de routeurs voisins. Les annonces de parcours sont des promesses que tout paquet reçu sera transmis au prochain routeur placé sur le chemin vers la destination. Il en profite pour supprimer les chemins le faisant passer par lui-même (ce qui provoquerait des boucles de routage).
+	\item Sélection de chemin. Un routeur BGP peut recevoir plusieurs annonces de parcours différentes pour un même système autonome, parmi lesquelles il doit faire un choix.
+	\item Envoi d’annonces de parcours aux routeurs voisins.
+\end{itemize}
+
+
+
+\textbf{BIND} \textit{Berkeley Internet Name Domain.} Logiciel standard pour les serveurs de nom Unix.
+
+
+
+\textbf{CARP} \textit{Cache Array Routing Protocol.}
+
+
+
+\textbf{CDMA} \textit{Code Division Multiple Access.} Protocole d’accès multiple par répartition de code.
+
+
+
+\textbf{CDN} \textit{Content Distribution Networks.} Réseaux de distribution de contenu.
+
+
+
+\textbf{CIDR} \textit{Classless InterDomain Routing.}
+
+
+
+\textbf{DHCP} \textit{Dynamic Host Configuration Protocol.} Protocole d’obtention d’IP automatique.
+Nous savons déjà que le protocole DHCP (Dynamic Host Configuration Protocol) est souvent utilisé pour l’attribution dynamique d’adresses IP. Il s’agit d’un protocole client-serveur. Normalement chaque réseau est doté d’un serveur DHCP. Ce protocole propose un processus en quatre étapes aux hôtes cherchant à se connecter à un réseau :
+\begin{itemize}
+	\item Détection d’un serveur DHCP : Un nouvel arrivant envoie un message de détection de DHCP, via UDP, avec le numéro d’accès 67. Le nouvel arrivant ne connaissant aucune adresse IP du réseau, il l’envoie sur l’adresse de diffusion 255.255.255.255 avec pour adresse d’origine 0.0.0.0. Ce message sera reçu par toutes les interfaces du réseau, y compris celle(s) du/des serveur(s) DHCP.
+	\item Proposition(s) du serveur DHCP : Le serveur DHCP répond d’un message de proposition DHCP, contenant une adresse IP, le masque de sous-réseau et une indication sur la durée de validité de l’adresse fournie.
+	\item Requête DHCP : Le nouvel arrivant fait son choix parmi les propositions et y répond par une requête DHCP.
+	\item Acquittement DHCP. Le serveur répond à cette requête au moyen d’un acquittement ( ACK ) qui confirme les paramètres sollicités.
+\end{itemize}
+Le client peut alors commencer à utiliser son adresse IP pendant la durée impartie.
+
+
+\textbf{DNS} \textit{Domain Name System.} Annuaire de correspondance entre les noms de domaines et les adresses IP.
+
+
+
+\textbf{CRC} \textit{Cyclic Redundancy Check.} Champ de détection des erreurs au sein d’une trame Ethernet.
+
+
+
+\textbf{DSL} \textit{Digital Subscriber Line.} Ligne d’abonné numérisée.
+
+
+
+\textbf{FTP} \textit{File Transfert Protocol.} Protocole de transfert de fichiers.
+
+
+
+\textbf{GBN} \textit{Go-Back-N.} Protocole de transport à fenêtre glissante.
+
+
+
+\textbf{GPRS} \textit{General Packet Radio Service.} Technologie d’accès mobile par paquets.
+
+
+
+\textbf{HFC} \textit{Hybrid Fiber Coaxial Cable.} Liaison hybride fibre et coaxial (câble).
+
+
+
+\textbf{HTTP} \textit{Hypertext Transfert Protocol.}
+
+
+
+\textbf{ICMP} \textit{Internet Control Message Protocol.} Protocole de rapport d’erreur de couche réseau.
+Le protocole ICMP (Internet Control Message Protocol) est utilisé par les serveurs,
+routeurs et passerelles pour échanger des informations de couche réseau, principalement
+des rapports d’erreurs. Bien que les messages soient véhiculés par des paquets IP, IMCP
+est souvent considéré comme partie intégrante de la couche IP, bien qu’il appartienne architecturalement
+à une couche supérieure. Lorsqu’un serveur reçoit un paquet IP annon-
+çant ICMP (champ Type de service), il procède au démultiplexage en direction d’ICMP,
+de la même manière qu’en direction de TCP ou UDP.
+
+
+
+\textbf{IP} \textit{Internet Protocol.}
+
+
+
+\textbf{IETF} \textit{Internet Engineering Task Force.} Groupe d’étude de l’ingénierie de l’Internet.
+
+
+
+\textbf{ISP} \textit{Internet Service Provider.} Fournisseur d’accès à l’Internet.
+
+
+
+\textbf{FDM} \textit{Frequency Division Multiplexing.} Multiplexage fréquentiel.
+
+
+
+\textbf{LAN} \textit{Local Area Network.} Réseau local à grande vitesse.
+
+
+
+\textbf{MTU} \textit{Maximum Transfert Unit.} Volume maximum de données qui peut être porté par un paquet de la couche liaison.
+
+
+
+\textbf{NAP} \textit{Network Access Points.} Points d’accès au réseau.
+
+
+
+\textbf{NAT} \textit{Network Address Translation.} Traduction d’adresses réseau.
+Dès que l’on souhaite mettre en place un réseau local reliant différents ordinateurs
+d’un même espace de travail, il faut obtenir autant d’adresses IP auprès de son fournisseur
+d’accès. Mais que se passe-t-il s’il a déjà alloué les adresses contiguës à celles du
+réseau en extension à un autre client ? C’est pour régler ce genre de problème qu’existe
+la traduction d’adresse réseau (NAT, network Address Translation).
+La figure ci-dessous représente le fonctionnement d’un routeur NAT. Ce routeur est
+doté d’une interface appartenant au réseau domestique et une interface orientée vers
+l’Internet. Le type d’adressage s’effectuant au sein du mini-réseau est exactement le
+même que celui que nous avons déjà décrit : les quatre interfaces se partagent le réseau
+10.0.0.0/24. Le routeur doté d’une fonction NAT se comporte vis-à-vis du monde extérieur
+comme un équipement isolé muni d’une seule adresse IP 138.76.29.7 et tout trafic entrant
+doit être doté de cette adresse de destination. Le routeur NAT obtient son adresse auprès
+de son FAI via DHCP et il a recours à un DHCP local pour l’attribution des adresses IP
+du mini-réseau.
+Lorsqu’un datagramme arrive de l’extérieur, le routeur a besoin d’une table de traduction
+d’adresses pour savoir à quel hôte du mini-réseau le remettre. Il utilisera pour
+ça une astuce avec les numéros de port. Prenons l’exemple de l’hôte d’interface 10.0.0.1
+qui sollicite une page Web (accès 80) sur l’interface 128.119.40.186. Le terminal 10.0.0.1
+assigne à son datagramme le numéro d’accès d’origine (arbitraire) 3345 et l’envoie au travers
+du réseau local. Sur réception de ce datagramme, le routeur NAT remplace l’adresse
+IP de l’expéditeur (10.0.0.1) par son adresse orientée vers l’Internet (138.76.29.7), choisit
+un port arbitraire (5001 par exemple) nouvellement créé, retient ces correspondances et
+envoie le nouveau datagramme sur l’Internet. Le serveur Web renverra naturellement les
+données de la requête sur l’interface 138.76.29.7 et l’accès 5001, qui seront converties en
+10.0.0.1 et 3345 par le serveur NAT et renvoyées sur le réseau local.
+
+
+
+\textbf{OSPF} \textit{Open Shortest Path First.} Protocole de routage avec priorité au plus court chemin.
+Tout comme RIP, OSPF (conçu pour succéder à RIP) sert au routage interne, et
+possède certaines propriétés avancées. A la base il s’agit d’un protocole à état de lien ayant
+recours à la technique d’inondations d’informations et à l’algorithme de Dijkstra. Les
+routeurs élaborent une carte topologique complète du système autonome puis déterminent
+un arbre de plus court chemin vers tous les réseaux du système, se considérant comme
+noeud racine. C’est à partir de cet arbre que peuvent être formées les tables de routage.
+Les valeurs de liaisons individuelles sont laissées à l’administrateur.
+Les routeurs communiquent leurs informations de routage à tous les routeurs de leur
+système autonome. Ces informations sont diffusées à chaque changement d’état d’une
+liaison et de manière périodique.
+OSPF apporte les innovations suivantes :
+\begin{itemize}
+	\item Sécurité : Tous les échanges entre routeurs OSPF font l’objet d’une authentification,
+ce qui signifie que seuls les routeurs dignes de confiance peuvent participer au
+protocole.
+	\item Chemins de coût égal : OSPF ne s’oppose pas à ce que différents chemins de même
+coût soient empruntés pour rejoindre une même destination.
+	\item Multidiffusion.
+	\item Support d’une hiérarchie : Capacité de ce protocole à structurer un système
+autonome de manière hiérarchique (voir ci-dessous).
+\end{itemize}
+Un système autonome OSPF peut être divisé en différents domaines, utilisant chacun
+son propre algorithme de routage d’information d’état de lien et communiquant ses
+informations à tous les routeurs du même domaine. Les détails internes à un domaine
+spécifique restent ainsi invisibles aux autres routeurs. Au sein de chaque domaine OSPF,
+un ou plusieurs routeurs frontaliers sont responsables de l’acheminement des paquets
+vers l’extérieur. Par ailleurs, chaque système autonome dispose d’un domaine fédérateur
+ayant pour fonction l’acheminement du trafic d’un domaine à un autre et rassemblant
+donc tous les routeurs frontaliers, ainsi qu’éventuellement d’autres routeurs. Le dessin
+ci-dessous illustre parfaitement cette situation.
+
+
+\textbf{POP} \textit{Point Of Presence.} Point de présence d’un ISP.
+
+
+
+\textbf{PPP} \textit{Point-to-Point Protocol.} Protocole de la couche liaison pour les liaisons point à point.
+
+
+
+\textbf{P2P} \textit{Peer-to-Peer.}
+
+
+
+\textbf{PDA} \textit{Personal Digital Assistant.}
+
+
+
+\textbf{RFC} \textit{Request for Comments.} Format de documents contenant les normes IETF.
+
+
+
+\textbf{RIP} \textit{Routing Information Protocol.} Protocole d’information de routage.
+RIP est un protocole à vecteur de distance très similaire à celui vu précédemment.
+Sa version originale a recours au nombre de bonds comme mesure du coût d’un chemin
+donné, attribuant à chaque liaison la même valeur unitaire, avec un coût par chemin
+ne pouvant dépasser 15 (ce qui limite RIP à des systèmes d’une portée inférieure à 15
+bonds). Les informations échangées entre routeurs voisins ont lieu à peu près toutes les
+30 secondes grâce au message de réponse RIP, contenant une liste pouvant aller jusqu’à
+25 réseaux de destination au sein du système autonome.
+Les tables de routage au sein des routeurs sont constituées de trois colonnes : le réseau
+de destination, l’identité du prochain routeur pour cette destination, et enfin le nombre
+de bonds jalonnant le chemin.
+Les routeurs s’échangent des annonces environ toutes les 30 secondes. Si un routeur ne
+reçoit pas de nouvelles de la part d’un voisin au moins une fois toutes les 180 secondes,
+celui-ci est considéré comme hors de portée, la table est alors modifiée et les voisins
+informés des modifications.
+S’il le souhaite un routeur peut interroger directement ses voisins au sujet du coût de
+ses chemins vers une destination donnée.
+
+
+
+\textbf{RTT} \textit{Round-trip Time.} Temps nécessaire à un petit paquet pour faire un aller-retour entre un client et un serveur.
+
+
+
+\textbf{SMTP} \textit{Simple Mail Transfert Protocol.} Protocole de gestion des systèmes de messageries électroniques.
+
+
+
+\textbf{TCP} \textit{Transmission Control Protocol.} Protocole de transfert de données fiable orienté connexion.
+
+
+
+\textbf{TDM} \textit{Time Division Multiplexing.} Multiplexage temporel.
+
+
+
+\textbf{TTL} \textit{Time To Live.} Durée de vie d’un datagramme.
+
+
+
+\textbf{UDP} \textit{User Datagram Protocol.} Protocole de transfert de données non fiable sans connexion.
+
+
+
+\textbf{URL} \textit{Uniform Resource Location.} Adresse propre d’un fichier sur le Web.
+
+
+
+\textbf{UTP} \textit{Unshielded Twisted Pair.} Paire torsadée non blindée.
+
+
+
+\textbf{WAP} \textit{Wireless Access Protocol.} Protocole d’accès sans fil.
+
+
+
+\textbf{WLAN} \textit{Réseau LAN sans fil.}
+
+
+
+\textbf{WML} \textit{WAP Markup Language.} Equivalent d’HTML pour le WAP.

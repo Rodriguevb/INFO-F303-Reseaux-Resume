@@ -1,42 +1,276 @@
 \subsection{Théorie}
 
-\newcommand{\questionA}{Expliquez la différence entre une paire de cuivre torsadée de catégorie 3 et une paire de catégorie 5. Laquelle permet un débit plus élevé et pourquoi ? } 
-\newcommand{\questionB}{Expliquez la différence entre une fibre optique monomode et une fibre multimode. Laquelle permet un débit plus élevé et pourquoi ? }
-\newcommand{\questionC}{Pourquoi utilise-t-on un modem pour transmettre de l'information numérique sur une ligne téléphonique ? Comment module-t-on le signal dans les modems « dial-up » les plus courants ? } 
+\newcommand{\question}{}
+\newcommand{\questionA}{}
+\newcommand{\questionB}{}
+\newcommand{\questionC}{}
+\newcommand{\questionD}{}
+\newcommand{\questionE}{}
+
+
+
+
+
+\renewcommand{\questionA}{Expliquez la différence entre une paire de cuivre torsadée de catégorie 3 et une paire de catégorie 5. Laquelle permet un débit plus élevé et pourquoi ? } 
+\renewcommand{\questionB}{Expliquez la différence entre une fibre optique monomode et une fibre multimode. Laquelle permet un débit plus élevé et pourquoi ? }
+\renewcommand{\questionC}{Pourquoi utilise-t-on un modem pour transmettre de l'information numérique sur une ligne téléphonique ? Comment module-t-on le signal dans les modems « dial-up » les plus courants ? } 
+\subsubsection[\questionA \questionB \questionC]{
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+	\item \questionC
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+	\item On utilise des paires de cuivre torsadées car en effet deux fils de cuivres parallèle crée un champ magnétique proportionnelle à leur distance, ce qui induit un grand courant et donc beaucoup de bruit. Or lorsqu'ils sont torsadés, les torsades créent chacune leur champs magnétique et courant induit et les flux induits s'inversent dans chaque boucle adjacente. Les effets sont donc atténués. Plus les torsades sont petites, plus l'effet est efficace. Les fils de catégorie 5 sont plus torsadé que ceux de catégorie 3 et donc plus efface (100 Mbps contre 10 Mbps)
+%POINT B
+	\item La fibre optique est une émission d'un nuage de photon dans un câble en verre. Composé d’un câble en fibre optique inclus dans un autre, les deux ayant des indices de réfractions différents. Ceci permettant de piéger les signaux par réfraction. les photons ne peuvent plus quitter le câble et se retrouve bloqué dans le câble du centre. On utilise plusieurs types de fibre :
+	\begin{description}
+		\item [Multimode] Le problème de la fibre optique est que les photons émis dans un même nuage prennent des trajectoires différentes (en fonctions des angles de réflexions au sein du câble), les photons du signal n’arrivent donc pas en même temps au bout du câble (ni dans la même partie). Or plus la distance est longues plus cet effet grandit et plus l’écart entre les photons de tête et de queue s’agrandit, on a donc un étalement puis un chevauchement des flux. Pour éviter les chevauchement on est donc obligé d’espacer les émissions en fonction des distances et capacités de réceptions. On a donc un débit intéressant mais non optimale, qui n’est utilisé que pour de courtes distances.
+		\item [Monomode] Ici on utilise un verre plus étroit($2,4\mu$) avec un seul mode de propagation, les photons vont donc en ligne droite, sans étalement. C’est efficace pour les grandes distances, mais plus chère.
+	\end{description}
+%POINT C
+	\item Le « dial-up » modem est un type de connexion au réseau. Elle utilise l'infrastructure téléphonique (câble de cuivre). Au dessus de 56kbps on accède directement au routeur. On peut ainsi téléphoner et surfer en même temps, e câble n'est jamais réservé seulement pour l'un. Ce système était optimisé pour la voix humaine, il a une limite de 4khertz pour les fréquences.
+\end{enumerate}
+\color{black}
+
+
+
+
+
+
+
+
+
+
+
+\renewcommand{\questionA}{Expliquez le principe d’un protocole à fenêtre glissante SR (Selective Repeat). } 
+\renewcommand{\questionB}{Quelle est la taille maximale de la fenêtre, si les trames sont numérotées modulo k ? Pourquoi ? }
+
+\subsubsection[\questionA \questionB]{
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+	\item GBN (Go-back N) souffre malgré ses améliorations encore quelques problèmes de performances. En effet, la moindre erreur dans un paquet peut entraîner la retransmission superflue d'une grande quantité de paquets pourtant déjà arrivés intègres. Le protocole à fenêtre glissante SR (Selective Repeat) évite les retransmissions inutiles et demandent à l'expéditeur de ne retransmettre que les paquets susceptibles d'avoir été perdus ou corrompus lors de la transmission. Cela implique que le destinataire envoie un ACK pour chaque paquet correctement reçu. Comme dans GBN (Go-back N), une fenêtre permet de limiter le nombre de paquets en attente de confirmation. En revanche certains paquets de cette fenêtre auront déjà fait l’objet d’un accusé de réception. Le destinataire renvoie un accusé pour chaque paquet valide qu’il reçoit, qu’il soit dans l’ordre ou non, et stocke dans un tampon ceux qui sont encore temporairement hors séquence (notons que ce tampon ne dépassera jamais la taille de la fenêtre d’envoi de l’expéditeur). Afin d’éviter les problèmes de confusions avec les numéros de séquence, la quantité de numéros disponible doit être au moins deux fois plus grande que la taille de la fenêtre.
+%POINT B
+	\item ?
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\renewcommand{\questionA}{Expliquez le principe d’un protocole à fenêtre glissante GBN (Go-back N). } 
+\renewcommand{\questionB}{Quelle est la taille maximale de la fenêtre de l’émetteur, si les trames sont numérotées modulo k ? Pourquoi ? } 
+\renewcommand{\questionC}{Citez et expliquez 4 différences apportées par le protocole SR (Selective Repeat). }
+\subsubsection[\questionA \questionB \questionC]{
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+	\item \questionC
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+    \item Le sender est autorisé à transmettre de multiples packets (si disponible) sans attendre d'ACKs, mais est contraint de ne pas avoir plus de N packets sans ACK dans le pipeline.
+
+%POINT B
+    \item Window size(N) $\leq seq\# $size(K) -1
+
+%POINT C
+    \item   \begin{itemize}
+                \item Le receveur de GBN a une fenêtre de 1.
+                \item Pas de buffer au receveur avec GBN mais bien dans SR pour mémoriser les packets qui ne sont pas dans l'ordre.
+                \item 1 timer dans GBN pour le plus ancien paquet envoyé mais pas reçu. Chaque packet a son propre timer dans SR.
+                \item Dans SR, on renvoie que les packets sans ACK alors que dans GBN, on renvoie tout les paquets à partir de celui sans ACK.
+            \end{itemize}
+
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\renewcommand{\questionA}{Donnez 4 éléments majeurs des protocoles « Go-Back-N » et « Selective Repeat » qui permettent
+de les différencier. } 
+\renewcommand{\questionB}{Pour chacun de ces éléments pris indépendamment, indiquez si TCP s’apparente davantage à l’un d’eux. Expliquez. } 
+\renewcommand{\questionC}{Quelle optimisation supplémentaire, liée au contrôle d’erreur, TCP y apporte-t-il ?}
 \subsubsection[\questionA \questionB \questionC]{
 \begin{enumerate}[(a)]
 	\item \questionA
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
-%POINT B
+
+%POINT 2
     \item ?
-%POINT C
+
+%POINT 3
     \item ?
+
 \end{enumerate}
 \color{black}
 
 
-\subsubsection{Définissez les différents types de « Resource Records » utilisés par le protocole DNS et expliquez leur rôle.}
-\color{reponse}
+
+
+
+\subsubsection{Dans les protocoles à fenêtre glissante de type « Selective Repeat », quelles sont les relations qui sont
+satisfaites à tout instant entre les quatre valeurs suivantes : les bords inférieurs et supérieurs des
+fenêtres de l’émetteur et du récepteur ? Justifiez.}
+\color{cyan}
 ?
 \color{black}
 
 
-\newcommand{\question}{10 processus clients communiquent simultanément avec un processus serveur attaché au port 8000. } 
-\renewcommand{\questionA}{Combien de sockets vont être ouverts par le serveur si les processus communiquent par UDP ? Pourquoi ? } 
-\renewcommand{\questionB}{Même question s’ils communiquent par TCP. }
+
+
+
+
+
+\renewcommand{\question}{Le protocole de routage inter-domaine BGP est plus apparenté à la famille des protocoles de routage intra-domaine à vecteur de distances (DV) qu’à celle des protocoles à état de lien (LS). } 
+\renewcommand{\questionA}{Expliquez deux ressemblances importantes entre BGP et un protocole DV. } 
+\renewcommand{\questionB}{Expliquez deux différences importantes entre BGP et un protocole DV, et leur raison d’être. }
 
 \subsubsection[\question \questionA \questionB]{\question
 \begin{enumerate}[(a)]
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+    \item ?
+%POINT B
+    \item ?
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\subsubsection{Décrivez le contenu des paquets de routage et leur méthode de diffusion dans le cas des protocoles à état de lien. En quelques mots, en quoi est-ce fondamentalement différent des protocoles à vecteur de distances ?}
+\color{cyan}
+?
+\color{black}
+
+
+
+
+
+\renewcommand{\question}{Le protocole de routage inter-domaine BGP est plus apparenté à la famille des protocoles de routage intra-domaine à vecteur de distances (DV) qu’à celle des protocoles à état de lien (LS). }
+\renewcommand{\questionA}{Expliquez deux ressemblances importantes entre BGP et un protocole DV. }
+\renewcommand{\questionB}{Expliquez deux différences importantes entre BGP et un protocole DV, et leur raison d’être. }
+\subsubsection[\question \questionA \questionB]{\question
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+	\item ?
+
+%POINT B
+    \item   \begin{itemize}
+                \item BGP mémorise toutes les routes vers toutes les destination : récupération rapide lorsqu'une destination devient inaccessible par la route initialement choisie.
+                \item BGP construit des routes sans boucle :
+                    \begin{itemize}
+                        \item Le chemin suivi est décrit explicitement à l'aide des AS traversés.
+                        \item Les boucles sont facilement détectées.
+                    \end{itemize}
+            \end{itemize}
+\end{enumerate}
+\color{black}
+
+
+
+
+
+
+\renewcommand{\questionA}{Nommez et expliquez succinctement les 2 grandes familles de protocoles de routage intra-domaine (IGP) en insistant sur leurs différences. }
+\renewcommand{\questionB}{Expliquez en quoi et pourquoi le protocole de routage inter-domaine de l’Internet (BGP) est différent des protocoles de routage intra-domaine (IGP) déployés dans les divers systèmes autonomes (AS) qui composent l’Internet.}
+\subsubsection[\questionA \questionB]{
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+    \item ?
+
+%POINT B
+    \item ?
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\renewcommand{\questionA}{Décrivez les principes du protocole de routage inter-domaine BGP. } 
+\renewcommand{\questionB}{Expliquez comment BGP permet à un réseau périphérique (« stub ») multi-connecté (« multihomed ») de ne pas accepter du trafic de transit. }
+\subsubsection[\questionA \questionB]{
+\begin{enumerate}[(a)]
+	\item \questionA
+    \item \questionB
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+    \item ?
+%POINT B
+    \item ?
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\renewcommand{\questionA}{Décrivez les principes du protocole de routage inter-domaine BGP. } 
+\renewcommand{\questionB}{Expliquez comment BGP permet à un réseau périphérique (« stub ») multi-connecté (« multihomed ») de ne pas accepter du trafic de transit. }
+\subsubsection[\questionA \questionB]{
+\begin{enumerate}[(a)]
+	\item \questionA
+    \item \questionB
+\end{enumerate}}
+\color{cyan}
+\begin{enumerate}[(a)]
+%POINT A
+    \item ?
+%POINT B
+    \item ?
+\end{enumerate}
+\color{black}
+
+
+
+
+
+\renewcommand{\question}{10 processus clients communiquent simultanément avec un processus serveur attaché au port 8000. } 
+\renewcommand{\questionA}{Combien de sockets vont être ouverts par le serveur si les processus communiquent par UDP ? Pourquoi ? } 
+\renewcommand{\questionB}{Même question s’ils communiquent par TCP. }
+
+\subsubsection[\question \questionA \questionB]{\question
+\begin{enumerate}[(a)]
+	\item \questionA
+	\item \questionB
+\end{enumerate}}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -47,23 +281,6 @@
 
 
 
-\renewcommand{\questionA}{Expliquez le principe d’un protocole à fenêtre glissante SR (Selective Repeat). } 
-\renewcommand{\questionB}{Quelle est la taille maximale de la fenêtre, si les trames sont numérotées modulo k ? Pourquoi ? }
-
-\subsubsection[\questionA \questionB]{
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-%POINT B
-    \item ?
-\end{enumerate}
-\color{black}
-
 
 
 \renewcommand{\questionA}{En première approximation, quels sont les 3 paramètres qui influencent le débit d’une connexion TCP ? Expliquez. }
@@ -71,71 +288,57 @@
 \subsubsection[\questionA \questionB]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
+	\item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
-    \item ?
+	\item ?
 %POINT B
-    \item ?
+	\item ?
 \end{enumerate}
 \color{black}
+
+
 
 
 
 \renewcommand{\questionA}{Décrivez l’architecture générique d’un routeur et le rôle de chaque composant. } 
 \renewcommand{\questionB}{Comment peut-on perdre des paquets dans les ports d’entrée ? }
 \renewcommand{\questionC}{Comment peut-on perdre des paquets dans les ports de sortie ? }
-\newcommand{\questionD}{Qu’est-ce que le blocage HOL ? }
+\renewcommand{\questionD}{Qu’est-ce que le blocage HOL ? }
 \subsubsection[\questionA \questionB \questionC \questionD]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
-    \item \questionC
-    \item \questionD
+	\item \questionB
+	\item \questionC
+	\item \questionD
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
-    \item ?
+	\item Quatre éléments principaux peuvent être identifiés dans l’architecture d’un routeur :
+	\begin{description}
+		\item [Port d’entrée] Prend en charge les fonctionnalités de la couche physique et de la couche liaison. Il assure une fonction de consultation et d’acheminement des paquets entrant dans la matrice de commutation vers le port de sortie approprié.
+		\item [Matrice de commutation] Relie les ports d’entrée et les ports de sortie.
+		\item [Port de sortie] Emmagasine les paquets qu’il reçoit de la part de la matrice de commutation. Assure les fonctionnalités inverses de la couche liaison et de la couche physique.
+		\item [Processeur de routage] Chargé de l’exécution des protocoles de routage, de la mise à jour des informations et des tables.
+	\end{description}
 
 %POINT B
-    \item ?
+	\item Le point le plus problématique est le fait que les routeurs doivent opérer à des vitesses élevées, impliquant des millions de consultations par seconde ; on souhaite en effet que l'opération de consultation soit plus rapide que le temps qu'il faut au routeur pour recevoir un nouveau paquet. Dès que le port de sortie a été identifié, le paquet peut entrer dans la matrice de commutation. Cependant un paquet peut se voir refuser temporairement l'accès si elle est occupée à traiter des paquets qui ont été reçus sur d'autres liaisons d'entrée. Il est alors placé en file d'attente sur son port. Si la matrice de commutation n'est pas assez rapide, et du coup à mesure de l'augmentation de ces files, le risque de perte de paquets augmente.
 
 %POINT C
-    \item ?
+	\item Si aucun ou peu de phénomène de mise en attente ne se produit à l'entrée, mais que tous les paquets venaient à être dirigés vers le même port de sortie, il serait très rapidement saturé. Un gestionnaire de paquets doit déterminer quel paquet de la file doit être transmis. Cette règle est généralement la règle FIFO (First In First Out).
 
 %POINT D
-    \item ?
+	\item HOL : Head of the line blocking Le routeur n’a pas de vue globale des buffer input, il ne prend donc en compte que le premier paquet du buffer. Si deux paquets doivent doivent aller au même port de sortie, un des paquets se retrouve en attente avec tous ceux qui le suivent, même si ceux ci doivent aller à un port actuellement libre.
 \end{enumerate}
 \color{black}
 
 
 
-\subsubsection{Décrivez le contenu des paquets de routage et leur méthode de diffusion dans le cas des protocoles à état de lien. En quelques mots, en quoi est-ce fondamentalement différent des protocoles à vecteur de distances ?}
-\color{reponse}
-?
-\color{black}
 
-
-\renewcommand{\question}{Le protocole de routage interdomaine BGP est plus apparenté à la famille des protocoles de routage intradomaine à vecteur de distances (DV) qu’à celle des protocoles à état de lien (LS). } 
-\renewcommand{\questionA}{Expliquez deux ressemblances importantes entre BGP et un protocole DV. } 
-\renewcommand{\questionB}{Expliquez deux différences importantes entre BGP et un protocole DV, et leur raison d’être. }
-
-\subsubsection[\question \questionA \questionB]{\question
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-%POINT B
-    \item ?
-\end{enumerate}
-\color{black}
 
 
 
@@ -150,27 +353,27 @@
     \item \questionC
     \item \questionD
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
-    \item La technologie \textbf{C}arrier \textbf{Sense} \textbf{M}ultiple \textbf{A}ccess permet à plusieurs machines d'utiliser un même média de communication. En plus de l'équipement de transmission, une sonde mesure l'état du média. Dans la version simple de CDMA, une machine ne peut transmettre si elle détecte de l'activité sur le média. Cependant, en raison du temps de propagation, surtout sur des longues distances, deux machines pourraient considérer le bus comme libre et commencer à écrire en même temps, pour se retrouver en collision quelques instants après. Le CSMA/CD rajoute la \textbf{C}ollision \textbf{D}etection: si lorsqu'un bit a été écrit, l'état mesuré est différent, la machine considère qu'il y a collision et arrête immédiatement d'écrire sur le bus. Elle attend ensuite pour un temps déterminé aléatoirement afin que deux machines en collision ne recommencent pas à émettre en même temps. 
+	\item La technologie \textbf{C}arrier \textbf{Sense} \textbf{M}ultiple \textbf{A}ccess permet à plusieurs machines d'utiliser un même média de communication. En plus de l'équipement de transmission, une sonde mesure l'état du média. Dans la version simple de CDMA, une machine ne peut transmettre si elle détecte de l'activité sur le média. Cependant, en raison du temps de propagation, surtout sur des longues distances, deux machines pourraient considérer le bus comme libre et commencer à écrire en même temps, pour se retrouver en collision quelques instants après. Le CSMA/CD rajoute la \textbf{C}ollision \textbf{D}etection: si lorsqu'un bit a été écrit, l'état mesuré est différent, la machine considère qu'il y a collision et arrête immédiatement d'écrire sur le bus. Elle attend ensuite pour un temps déterminé aléatoirement afin que deux machines en collision ne recommencent pas à émettre en même temps. 
 
 %POINT B
-    \item ?
+	\item ?
 
 %POINT C
-    \item ?
+	\item ?
 
 %POINT D
-    \item ?
+	\item ?
 
 \end{enumerate}
 \color{black}
 
 
 
-\subsubsection{On ne peut pas dire que les commutateurs Ethernet exécutent un protocole de routage (au sens de la couche 3), mais ils construisent toutefois des tables d’acheminement comme si un protocole de routage était à l’oeuvre. Expliquez comment ces tables sont construites, y compris quand plusieurs commutateurs sont interconnectés.}
-\color{reponse}
+\subsubsection{On ne peut pas dire que les commutateurs Ethernet exécutent un protocole de routage (au sens de la couche 3), mais ils construisent toutefois des tables d’acheminement comme si un protocole de routage était à l’oeuvre. Expliquez comment ces tables sont construites, y compris quand plusieurs commutateurs sont inter-connectés.}
+\color{cyan}
 ?
 \color{black}
 
@@ -184,7 +387,7 @@
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -201,10 +404,10 @@
 \subsubsection[\questionA \questionB \questionC]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
-    \item \questionC
+	\item \questionB
+	\item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item La dispersion du délai se produit lorsque les rayons lumineux sont réfractés ou réfléchis par la couche périphérique de l'âme de la fibre, et que ces rayons ont des trajectoires différentes. Ces trajectoires ayant des longueur différentes, le temps que mettra la lumière à les parcourir différera, et une impulsion lumineuse très courte pourrait être reçue en plusieurs fragments de l'autre côté.
@@ -226,57 +429,29 @@
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
-    \item   \begin{itemize}
-                \item A : Name est hostname et Value est l'IP de l'hostname. A fournit le mapping standard hostname-to-IP.
-                \item NS : Name est un domaine et Value est le hostname d'un serveur DNS autoritaire qui connait l'adresse IP du domaine. Il permet à un client de connaître le serveur à contacter pour ce domaine.
-                \item CNAME : Name est un alias pour le hostname présent dans Value.
-                \item MX : Value est le nom canonique d'un serveur mail qui a un hostname alias Name.
-            \end{itemize}
+	\item Les enregistrements sur DNS sont sous le format : (name, value, type, tt1). On a plusieurs types possibles, entre autre :
+		\begin{itemize}
+			\item A : \textit{name} est hostname et \textit{value} est l'IP de l'hostname. A fournit le mapping standard hostname-to-IP.
+			\item NS : \textit{name} est un domaine et \textit{value} est le hostname d'un serveur DNS autoritaire qui connait l'adresse IP du domaine. Il permet à un client de connaître le serveur à contacter pour ce domaine.
+			\item CNAME : \textit{name} est un alias pour le hostname présent dans \textit{value}.
+			\item MX : nom du serveur mail associé à \textit{name}
+		\end{itemize}
 
 %POINT B
-    \item   \begin{itemize}
-                \item Le client émet une requête \texttt{www.company.com in A} à son serveur DNS local. 
-                \item Le serveur local, n'ayant pas l'adresse requise en cache, contacte un des root servers (défini dans sa configuration), avec la même requête.
-                \item Le serveur root contacté lui renvoie alors le nom et l'adresse authoritaire (champs \texttt{NS} et \texttt{A} du serveur principal pour le TLD \texttt{.com})
-                \item Le serveur local réémet à nouveau la même requête vers le serveur du TLD \texttt{.com}. Ce serveur TLD renvoie lui aussi les champs \texttt{NS} et \texttt{A} pour le serveur faisant authorité sur le domaine \texttt{www.company.com} (\textit{par exemple ns110.ovh.net}).
-                \item Le serveur local contacte alors le serveur authoritaire, qui lui renvoie la zone pour le domaine \texttt{company.com}, qui contient un champ \texttt{CNAME} pour \texttt{www.company.com}. Si cet champ pointe vers le domaine contenu dans l'enregistrement \texttt{A} de la zone, la recherche s'arrête, le client a obtenu l'ip désirée.
-                \item Sinon, tant qu'un enregistrement \texttt{A} n'a pas été trouvé, le serveur recommence les mêmes étapes à partir du domaine obtenu dans le champ \texttt{CNAME}.
-            \end{itemize}
+	\item \begin{itemize}
+		\item Le client émet une requête \texttt{www.company.com in A} à son serveur DNS local. 
+		\item Le serveur local, n'ayant pas l'adresse requise en cache, contacte un des root servers (défini dans sa configuration), avec la même requête.
+		\item Le serveur root contacté lui renvoie alors le nom et l'adresse authoritaire (champs \texttt{NS} et \texttt{A} du serveur principal pour le TLD \texttt{.com})
+		\item Le serveur local réémet à nouveau la même requête vers le serveur du TLD \texttt{.com}. Ce serveur TLD renvoie lui aussi les champs \texttt{NS} et \texttt{A} pour le serveur faisant authorité sur le domaine \texttt{www.company.com} (\textit{par exemple ns110.ovh.net}).
+		\item Le serveur local contacte alors le serveur authoritaire, qui lui renvoie la zone pour le domaine \texttt{company.com}, qui contient un champ \texttt{CNAME} pour \texttt{www.company.com}. Si cet champ pointe vers le domaine contenu dans l'enregistrement \texttt{A} de la zone, la recherche s'arrête, le client a obtenu l'ip désirée.
+		\item Sinon, tant qu'un enregistrement \texttt{A} n'a pas été trouvé, le serveur recommence les mêmes étapes à partir du domaine obtenu dans le champ \texttt{CNAME}.
+		\end{itemize}
 \end{enumerate}
 \color{black}
 
-
-
-\renewcommand{\questionA}{Expliquez le principe d’un protocole à fenêtre glissante GBN (Go-back N). } 
-\renewcommand{\questionB}{Quelle est la taille maximale de la fenêtre de l’émetteur, si les trames sont numérotées modulo k ? Pourquoi ? } 
-\renewcommand{\questionC}{Citez et expliquez 4 différences apportées par le protocole SR (Selective Repeat). }
-\subsubsection[\questionA \questionB \questionC]{
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-    \item \questionC
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item Le sender est autorisé à transmettre de multiples packets (si disponible) sans attendre d'ACKs, mais est contraint de ne pas avoir plus de N packets sans ACK dans le pipeline.
-
-%POINT B
-    \item Window size(N) $\leq seq\# $size(K) -1
-
-%POINT C
-    \item   \begin{itemize}
-                \item Le receveur de GBN a une fenêtre de 1.
-                \item Pas de buffer au receveur avec GBN mais bien dans SR pour mémoriser les packets qui ne sont pas dans l'ordre.
-                \item 1 timer dans GBN pour le plus ancien paquet envoyé mais pas reçu. Chaque packet a son propre timer dans SR.
-                \item Dans SR, on renvoit que les packets sans ACK alors que dans GBN, on revnoit tout les paquets à partir de celui sans ACK.
-            \end{itemize}
-
-\end{enumerate}
-\color{black}
 
 
 
@@ -285,9 +460,9 @@
 \subsubsection[\questionA \questionB]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
+	\item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item Comme son nom l'indique, le three-way handshake se déroule en trois étapes:
@@ -308,15 +483,15 @@
 \renewcommand{\questionA}{Comment l’émetteur TCP détecte-t-il une congestion ? } 
 \renewcommand{\questionB}{Décrivez le mécanisme de contrôle de congestion de TCP. }
 \renewcommand{\questionC}{Quelle distinction TCP fait-il entre congestion légère et congestion sévère ? Comment réagit-il dans chaque cas ? } 
-\renewcommand{\questionD}{Si on néglige les effets du contrôle de flux, ce contrôle de congestion détermine largement le débit moyen d’une connexion TCP. Quand plusieurs connexions TCP sont en compétition, se partagentelles la bande passante disponible de façon équitable. Expliquez. } 
+\renewcommand{\questionD}{Si on néglige les effets du contrôle de flux, ce contrôle de congestion détermine largement le débit moyen d’une connexion TCP. Quand plusieurs connexions TCP sont en compétition, se partagent-elles la bande passante disponible de façon équitable ? Expliquez. } 
 \subsubsection[\questionA \questionB \questionC \questionC]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
-    \item \questionC
-    \item \questionD
+	\item \questionB
+	\item \questionC
+	\item \questionD
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item TCP peut distinguer 2 types de congestions: soit il reçoit 3 ACKs consécutifs pour le même numéro de séquence (donc un des paquets intermédiaire a été perdus, mais les suivants sont passés: \textbf{faible congestion}), soit un ACK n'arrive pas dans le temps imparti (timeout, beaucoup de paquets perdus: \textbf{congestion sévère}).
@@ -340,21 +515,21 @@
 \subsubsection[\questionA \questionB \questionC]{
 \begin{enumerate}[(a)]
 	\item \questionA
-    \item \questionB
-    \item \questionC
+	\item \questionB
+	\item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item   \begin{itemize}
-                \item via Memory : Les plus simples, les premiers routeurs étaient de simples ordinateurs. Le switch entre les ports d'entrée et sortie étaient fait via le CPU. Lorsqu'un paquet arrive au port d'entrée, le processus de routing l'identifiera via une interruption.Il copiera ensuite les paquets arrivant du buffer d'entrée sur le processeur mémoire. Le processeur extrait ensuite l'adresse de destination, recherche la table appropriée et copie le paquet sur le buffer du port de sortie. Dans les routeurs modernes, la recherche de l'adresse de destination et le stockage du paquet dans la mémoire appropriée est exécuté par les cartes de ligne d'entrée des processeurs.\\
+                \item Commutation par action sur la mémoire : Les plus simples, les premiers routeurs étaient de simples ordinateurs. Le switch entre les ports d'entrée et sortie étaient fait via le CPU. Lorsqu'un paquet arrive au port d'entrée, le processus de routing l'identifiera via une interruption.Il copiera ensuite les paquets arrivant du buffer d'entrée sur le processeur mémoire. Le processeur extrait ensuite l'adresse de destination, recherche la table appropriée et copie le paquet sur le buffer du port de sortie. Dans les routeurs modernes, la recherche de l'adresse de destination et le stockage du paquet dans la mémoire appropriée est exécuté par les cartes de ligne d'entrée des processeurs.\\
                 Avantages : \\
-                Inconvénients : \\
-                \item via un bus : Le port d'entrée transfert les paquets directement sur le port de sortie via un bus partagé sans l'intervention d'un processus de routage. Comme le bus est partagé, seul un paquet est transféré à la fois via le bus. Si le bus est occupé, le paquet arrivant doit attendre dans une file. La bande passante du routeur est limitée par le bus comme chaque paquet doit traverser le bus seul. Exemple :  Bus switching CISCO-1900, 3-COM’s care builder5.\\
-                Avantages : \\
-                Inconvénients : \\
-                \item via un réseau interconnecté : Pour surmonter le problème de la bande passante d'un bus partagé, les commutateurs réseaux en croix sont utilisés. Dans les commutateurs réseaux en croix,port  entrées et sorties sont connectés par des bus hozitontaux et verticaux. Si nous avons N ports d'entrés et N ports de sorties, on a besoin de 2N bus pour les connecter. Pour transférer un paquet du port d'entrée au port de sortie correspondant, le paquet traverse le bus horizontal jusqu'à une intersection avec un bus vertival qui le conduit à son port de destination. Si le vertical est libre, le paquet est transféré. Mais si le bus vertical est occupé à cause d'une autre entrée, la ligne doit transférer des paquets au même port de destination. Les paquets sont bloqués et font la file sur le même port d'entrée.\\
-                Avantages : \\
+                Inconvénients : Traite un seul paquet à la fois, lent.\\
+                \item Commutation par bus : Le port d'entrée transfert les paquets directement sur le port de sortie via un bus partagé sans l'intervention d'un processus de routage. Comme le bus est partagé, seul un paquet est transféré à la fois via le bus. Si le bus est occupé, le paquet arrivant doit attendre dans une file. La bande passante du routeur est limitée par le bus comme chaque paquet doit traverser le bus seul. Exemple :  Bus switching CISCO-1900, 3-COM’s care builder5.\\
+                Avantages : C'est le délit du bus qui détermine la vitesse de commutation du routeur.\\
+                Inconvénients : C'est qu'un seul paquet est transféré à la fois, du coup il y a un risque d'attente.\\
+                \item Commutation par réseau d'interconnexions : Pour surmonter le problème de la bande passante d'un bus partagé, les commutateurs réseaux en croix sont utilisés. Dans les commutateurs réseaux en croix, port entrées et sorties sont connectés par des bus horizontaux et verticaux. Si nous avons N ports d'entrés et N ports de sorties, on a besoin de 2N bus pour les connecter. Pour transférer un paquet du port d'entrée au port de sortie correspondant, le paquet traverse le bus horizontal jusqu'à une intersection avec un bus vertical qui le conduit à son port de destination. Si le vertical est libre, le paquet est transféré. Mais si le bus vertical est occupé à cause d'une autre entrée, la ligne doit transférer des paquets au même port de destination. Les paquets sont bloqués et font la file sur le même port d'entrée.\\
+                Avantages : Améliore la limite de débit associé à un bus commun.\\
                 Inconvénients : \\
             \end{itemize}
 
@@ -375,7 +550,7 @@
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item Quand on cherche à envoyer une table d'entrée pour une adresse de destination donnéee, on utilise le préfixe de la plus longue adresse qui correspond à l'adresse de destination.
@@ -387,30 +562,7 @@
 
 
 
-\renewcommand{\question}{Le protocole de routage interdomaine BGP est plus apparenté à la famille des protocoles de routage intradomaine à vecteur de distances (DV) qu’à celle des protocoles à état de lien (LS). }
-\renewcommand{\questionA}{Expliquez deux ressemblances importantes entre BGP et un protocole DV. }
-\renewcommand{\questionB}{Expliquez deux différences importantes entre BGP et un protocole DV, et leur raison d’être. }
-\subsubsection[\question \questionA \questionB]{\question
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
 
-%POINT B
-    \item   \begin{itemize}
-                \item BGP mémorise toutes les routes vers toutes les destination : récupération rapide lorsqu'une destination devient inaccessible par la route initialement choisie.
-                \item BGP construit des routes sans boucle :
-                    \begin{itemize}
-                        \item Le chemin suici est décrit explicitement à l'aide des AS traversés.
-                        \item Les boucles sont facilement détectées.
-                    \end{itemize}
-            \end{itemize}
-\end{enumerate}
-\color{black}
 
 
 
@@ -423,7 +575,7 @@
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -446,7 +598,7 @@
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item Dans WMD, chaque station reçoit deux canaux. Un canal de faible bande passante pour la signalisation de la station et un canal d'une bande passante plus large pour envoyer et recevoir des trames. Chaque canal est divisé en groupes de slots. Appelons m le nombre de slots du canal de signalisation. L'expression n+1 indique le nombre de slots du canal de données : n slots de données utiles et un slot supplémentaire pour que la station renseigne sur son état, principalement pour indiquer les slots libres sur chacun de ses deux canaux. Sur ces deux canaux, la séquence de slots se répète continuellement, avec un marquage particulier pour le slot 0, afin que les stations arrivant plus tard puissent le repérer. Toutes les stations sont synchronisées au moyen d'une seule horloge pilote.
@@ -474,7 +626,7 @@ Le protocole gère 3 classes de trafic :
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -493,7 +645,7 @@ Le protocole gère 3 classes de trafic :
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item Ports can provide multiple endpoints on a single node. For example, the name on a postal address is a kind of multiplexing, and distinguishes between different recipients of the same location. Computer applications will each listen for information on their own ports, which enables the use of more than one network service at the same time. It is part of the transport layer in the TCP/IP model, but of the session layer in the OSI model.
@@ -505,34 +657,9 @@ Le protocole gère 3 classes de trafic :
 
 
 
-\renewcommand{\questionA}{Donnez 4 éléments majeurs des protocoles « Go-Back-N » et « Selective Repeat » qui permettent
-de les différencier. } 
-\renewcommand{\questionB}{Pour chacun de ces éléments pris indépendamment, indiquez si TCP s’apparente davantage à l’un d’eux. Expliquez. } 
-\renewcommand{\questionC}{Quelle optimisation supplémentaire, liée au contrôle d’erreur, TCP y apporte-t-il ?}
-\subsubsection[\questionA \questionB \questionC]{
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-    \item \questionC
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-
-%POINT 2
-    \item ?
-
-%POINT 3
-    \item ?
-
-\end{enumerate}
-\color{black}
-
-
 
 \subsubsection{Expliquez le principe de NAT et la structure d’une table NAT.}
-\color{reponse}
+\color{cyan}
 Lorsqu'un paquet est envoyé vers l'extérieur, il passe par un dispositif NAT qui converytir l'adresse IP interne en adresse IP officielle de l'entreprise. Le dispositif NAT et un pare-feu sont souvent combinés dans le même équipement, offrant ainsi une certaine sécurité en contrôlant précisément ce qui entre sur le réseau et en sort.
 
 Structure d'une table NAT :
@@ -546,36 +673,16 @@ Structure d'une table NAT :
 
 
 \subsubsection{Quand des flux TCP et UDP partagent un même lien congestionné, comment réagissent ces deux types de flux et quelles en sont les conséquences ?}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
 
 
-\renewcommand{\questionA}{Nommez et expliquez succinctement les 2 grandes familles de protocoles de routage intradomaine (IGP) en insistant sur leurs différences. }
-\renewcommand{\questionB}{Expliquez en quoi et pourquoi le protocole de routage interdomaine de l’Internet (BGP) est différent des protocoles de routage intradomaine (IGP) déployés dans les divers systèmes autonomes (AS) qui composent l’Internet.}
-\subsubsection[\questionA \questionB]{
-\begin{minipage}[t]{10cm}
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}
-\end{minipage}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-
-%POINT B
-    \item ?
-\end{enumerate}
-
-\color{black}
-
 
 
 \subsubsection{Expliquez comment un routeur construit les entrées de sa table d’acheminement pour les préfixes IP extérieurs à son domaine.}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -590,7 +697,7 @@ Structure d'une table NAT :
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -611,7 +718,7 @@ Structure d'une table NAT :
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -623,7 +730,7 @@ Structure d'une table NAT :
 
 
 \subsubsection{Citez une fonction majeure de chacune des 5 couches de la pile de protocoles Internet.}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -637,7 +744,7 @@ de retransmission d’un protocole de liaison de donnée ? }
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -649,7 +756,7 @@ de retransmission d’un protocole de liaison de donnée ? }
 
 
 \subsubsection{Expliquez la raison d’être des protocoles DHCP et NAT, et expliquez leur fonctionnement à l’aide de scénarios typiques.}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -666,7 +773,7 @@ fonctionne, et comment la réalise-t-on ?}
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -680,7 +787,7 @@ fonctionne, et comment la réalise-t-on ?}
 
 
 \subsubsection{Citez et définissez les différentes sources de délai que subit un paquet dans un réseau datagramme.}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -693,7 +800,7 @@ fonctionne, et comment la réalise-t-on ?}
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -713,7 +820,7 @@ fonctionne, et comment la réalise-t-on ?}
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -735,7 +842,7 @@ qu’il est également nécessaire de numéroter les acquits pour assurer la fia
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -755,7 +862,7 @@ raisons. }
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -773,7 +880,7 @@ raisons. }
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -785,7 +892,7 @@ raisons. }
 
 
 \subsubsection{Combien d’adresses IP doit-on attribuer à un routeur ? Pourquoi ?}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -800,7 +907,7 @@ distances ? }
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -811,27 +918,11 @@ distances ? }
 
 
 
-\renewcommand{\questionA}{Décrivez les principes du protocole de routage inter-domaine BGP. } 
-\renewcommand{\questionB}{Expliquez comment BGP permet à un réseau périphérique (« stub ») multi-connecté (« multihomed
-») de ne pas accepter du trafic de transit. }
-\subsubsection[\questionA \questionB]{
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-%POINT B
-    \item ?
-\end{enumerate}
-\color{black}
 
 
 
 \subsubsection{Sachant que la couche de transport est équipée de mécanismes (Cf. TCP) pour récupérer les erreurs de bout-en-bout, pourquoi la couche de liaison de données implémente-t-elle aussi toute une série de fonctions de ce type, comme la détection d’erreurs, voire même la retransmission de trames erronées dans certains cas.}
-\color{reponse}
+\color{cyan}
 ?
 \color{black}
 
@@ -846,7 +937,7 @@ distances ? }
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -870,7 +961,7 @@ distances ? }
     \item \questionC
     \item \questionD
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -894,7 +985,7 @@ client, le serveur et le proxy. Expliquez le gain d’efficacité lorsque l’ob
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -914,7 +1005,7 @@ qu’il est également nécessaire de numéroter les acquits pour assurer la fia
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -924,13 +1015,6 @@ qu’il est également nécessaire de numéroter les acquits pour assurer la fia
 \color{black}
 
 
-
-\subsubsection{Dans les protocoles à fenêtre glissante de type « selective repeat », quelles sont les relations qui sont
-satisfaites à tout instant entre les quatre valeurs suivantes : les bords inférieurs et supérieurs des
-fenêtres de l’émetteur et du récepteur ? Justifiez.}
-\color{reponse}
-?
-\color{black}
 
 
 
@@ -942,7 +1026,7 @@ sens d’une connexion ? }
 	\item \questionA
     \item \questionB
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -962,7 +1046,7 @@ sens d’une connexion ? }
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
@@ -974,23 +1058,6 @@ sens d’une connexion ? }
 \color{black}
 
 
-
-\renewcommand{\questionA}{Décrivez les principes du protocole de routage inter-domaine BGP. } 
-\renewcommand{\questionB}{Expliquez comment BGP permet à un réseau périphérique (« stub ») multi-connecté (« multihomed
-») de ne pas accepter du trafic de transit. }
-\subsubsection[\questionA \questionB]{
-\begin{enumerate}[(a)]
-	\item \questionA
-    \item \questionB
-\end{enumerate}}
-\color{reponse}
-\begin{enumerate}[(a)]
-%POINT A
-    \item ?
-%POINT B
-    \item ?
-\end{enumerate}
-\color{black}
 
 
 
@@ -1004,7 +1071,7 @@ courbe. }
     \item \questionB
     \item \questionC
 \end{enumerate}}
-\color{reponse}
+\color{cyan}
 \begin{enumerate}[(a)]
 %POINT A
     \item ?
