@@ -1,5 +1,7 @@
 # Résumé du cours INFO-F303 - Réseaux.
 
+/!\/!\/!\/!\/!\/!\/!\ ATTENTION, ceci est un vieux résumé. Il en existe un plus récent sur https://rodriguevb.be/ulb tous les autres des autres cours. Ceux-ci peuvent être modifié sur le répertoire https://github.com/ULBstudents/website  /!\/!\/!\/!\/!\/!\/!\/!\
+
 ## Qu'est-ce donc ce répertoire ?
 Ce répertoire contient le résumé en PDF (via LaTeX) du cours INFO-F303 - Réseaux de l'Université Libre de Bruxelles. Ce résumé dispose de la même table des matières que le cours (dans la mesure du possible).
 
