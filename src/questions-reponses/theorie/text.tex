@@ -674,7 +674,8 @@ Structure d'une table NAT :
 
 \subsubsection{Quand des flux TCP et UDP partagent un même lien congestionné, comment réagissent ces deux types de flux et quelles en sont les conséquences ?}
 \color{blue}
-?
+TCP à un système permettant d'éviter la congestion.  Il va réguler son trafic pour éviter d'envoyer trop de packet alors qu'il ne reçois aucun ACK.  Par contre UDP lui ne controle rien du tout.\\
+Au final, on peut imaginer que les packets qui ont réussi à être stocké dans le buffer vont être correctement transmis mais par la suite, UDP va prendre la majeur partie du trafic (vu que TCP va se rendre compte du problème et diminuer le nombre de packet envoyé) en ayant de temps en temps quelques packets détruit à cause de TCP qui continuer à fonctionner (mais en ayant réduit la charge).
 \color{black}
 
 
